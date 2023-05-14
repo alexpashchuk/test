@@ -8,6 +8,7 @@
     "build": "webpack",
     "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://github.com/alexpashchuk/asd",
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^8.1.1",
