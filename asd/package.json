@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --env development",
     "build": "webpack",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npx gh-pages -d dist/ -e asd/"
   },
   "homepage": "https://github.com/alexpashchuk/asd",
   "devDependencies": {
