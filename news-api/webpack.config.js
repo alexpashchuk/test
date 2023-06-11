@@ -36,8 +36,8 @@ const baseConfig = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: `./src/img`,
-                    to: `img`,
+                    from: `./src/assets`,
+                    to: `assets`,
                     noErrorOnMissing: true,
                     force: true,
                 },
