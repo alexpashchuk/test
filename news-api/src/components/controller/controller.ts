@@ -11,6 +11,18 @@ class AppController extends AppLoader {
         );
     }
 
+    getSearch(callback: Callback<NewsData>) {
+        const searchInput = document.querySelector('.search__input') as HTMLInputElement;
+        const keySearch = searchInput.value;
+        super.getResp(
+            {
+                endpoint: 'everything',
+            },
+            callback,
+            keySearch
+        );
+    }
+
     getNews(e: Event, callback: Callback<NewsData>) {
         let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;

@@ -1,8 +1,9 @@
 import Loader from './loader';
+import { newsLinks } from '../app/types';
 
 class AppLoader extends Loader {
     constructor() {
-        super('https://rss-news-api.onrender.com/', {
+        super(newsLinks.linkDeploy, {
             apiKey: 'b3095f32b45e4809b0761a77753ace53',
         });
     }

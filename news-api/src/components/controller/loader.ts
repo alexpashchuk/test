@@ -12,9 +12,10 @@ class Loader {
         { endpoint, options = {} }: { endpoint: string; options?: Options<string> },
         callback: Callback<NewsData> | Callback<SourceData> = (): void => {
             console.error('No callback for GET response');
-        }
+        },
+        keySearch = ''
     ): void {
-        this.load('GET', endpoint, callback, options);
+        this.load('GET', endpoint, callback, options, keySearch);
     }
 
     errorHandler(res: Response): Response {
@@ -27,10 +28,15 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: Options<string>, endpoint: string) {
+    makeUrl(options: Options<string>, endpoint: string, keySearch: string) {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
-
+        if (keySearch) {
+            Object.keys(urlOptions).forEach((key) => {
+                url += `q=${keySearch}&${key}=${urlOptions[key]}`;
+            });
+            return url;
+        }
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
         });
@@ -38,8 +44,14 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: Callback<NewsData> | Callback<SourceData>, options = {}) {
-        fetch(this.makeUrl(options, endpoint), { method })
+    load(
+        method: string,
+        endpoint: string,
+        callback: Callback<NewsData> | Callback<SourceData>,
+        options = {},
+        keySearch: string
+    ) {
+        fetch(this.makeUrl(options, endpoint, keySearch), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
             .then((data) => callback(data))

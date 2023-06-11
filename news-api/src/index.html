@@ -4,20 +4,34 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
         <title>NewsPortal</title>
     </head>
     <body>
+    <div  class="wrapper">
         <header>
             <h1>News Portal</h1>
         </header>
         <main>
+            <div class="search">
+                <input type="text" class="search__input" value="Search..." onfocus="value=''" />
+                <button type="submit" class="search__btn">Search</button>
+            </div>
             <div class="sources buttons"></div>
             <div class="news"></div>
         </main>
-        <footer>
-            <p class="copyright">
-                Copyright <a href="https://newsapi.org">NewsAPI</a>
-            </p>
+        <footer class="footer">
+            <div class="footer__container">
+                <div class="footer__copyright"><p>© Copyright</p><a href="https://newsapi.org" class="footer__copyright_link">NewsAPI</a></div>
+                <div class="footer__links">
+                    <a href="https://github.com/alexpashchuk" target="_blank" class="footer__github">
+                        <img src="./assets/github.svg" alt="github">
+                    </a>
+                    <a href="https://rs.school/js/" target="_blank" class="footer__rs-school">
+                       2023 <img src="./assets/rs-school.svg" alt="rs-school">
+                    </a>
+                </div>
+            </div>
         </footer>
 
         <template id="sourceItemTemp">
@@ -46,6 +60,7 @@
             </div>
         </template>
 
-        <script src='./index.js'></script>
+    </div>
+    <script src='./index.js'></script>
     </body>
 </html>
