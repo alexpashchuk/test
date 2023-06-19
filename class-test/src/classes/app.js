@@ -1,5 +1,6 @@
 import '../style.css';
 import FooterView from './view/footer/footer-view';
+import HeaderView from './view/header/header-view';
 
 export default class App {
     constructor() {
@@ -8,7 +9,8 @@ export default class App {
 
     createView() {
         const footer = new FooterView();
+        const header = new HeaderView();
 
-        document.body.append(footer.getHtmlElement());
+        document.body.append(header.getHtmlElement(),footer.getHtmlElement());
     }
 }
