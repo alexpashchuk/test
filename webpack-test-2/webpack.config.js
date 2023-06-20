@@ -25,6 +25,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
+        assetModuleFilename: 'assets/[name][ext]',
     },
     module: {
         rules: [
@@ -45,8 +46,16 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/fonts/[contenthash][ext]',
+                    filename: 'assets/fonts/[name][ext]',
                 },
+            },
+            {
+                test: /\.(?:mp3|wav|ogg|mp4)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
+                type: 'asset/resource',
             },
             {
                 test: /\.tsx?$/,
@@ -56,7 +65,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.ts', '.js'],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -66,16 +75,16 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
         }),
-        // new CopyWebpackPlugin({
-        //     patterns: [
-        //         {
-        //             from: path.resolve(__dirname, 'src/assets'),
-        //             to: `assets`,
-        //             noErrorOnMissing: true,
-        //             force: true,
-        //         },
-        //     ],
-        // }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src/assets'),
+                    to: `assets`,
+                    noErrorOnMissing: true,
+                    force: true,
+                },
+            ],
+        }),
         new CleanWebpackPlugin(),
         new EslintPlugin({ extensions: 'ts' }),
     ],
