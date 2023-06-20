@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
@@ -22,9 +23,8 @@ module.exports = {
     },
     entry: './src/index.ts',
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[contenthash].bundle.js',
-        clean: process.env.NODE_ENV === 'production',
+        path: path.resolve(__dirname, './dist'),
+        filename: '[name].js',
     },
     module: {
         rules: [
@@ -51,6 +51,7 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
+                exclude: /node_modules/,
             },
         ],
     },
@@ -59,22 +60,23 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
+            filename: '[name].css',
         }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: `./src/assets`,
-                    to: `assets`,
-                    noErrorOnMissing: true,
-                    force: true,
-                },
-            ],
-        }),
+        // new CopyWebpackPlugin({
+        //     patterns: [
+        //         {
+        //             from: path.resolve(__dirname, 'src/assets'),
+        //             to: `assets`,
+        //             noErrorOnMissing: true,
+        //             force: true,
+        //         },
+        //     ],
+        // }),
+        new CleanWebpackPlugin(),
         new EslintPlugin({ extensions: 'ts' }),
     ],
     optimization: {
